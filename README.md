@@ -1,4 +1,6 @@
-# I used the FOCUS latex beamer for this presentation
+# I used the FOCUS latex beamer for this presentation. Info below.
+
+Figures in this presentation are from the [discussed paper](https://www.biorxiv.org/content/10.1101/2020.04.28.066720v1), unless otherwise specified. I am using these images for educational purposes only.
 
 # Focus v2.3
 A presentation theme for LaTeX Beamer that aims at a clean and minimalist design,
