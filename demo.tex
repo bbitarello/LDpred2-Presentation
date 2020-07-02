@@ -65,6 +65,49 @@ But \emph{actually} also requires:
     \end{itemize}
 \end{frame}
 
+    \begin{frame}{LDpred model - Overview}
+    Unlinked markers and non-infinitesimal architecture\\
+    \newline
+    
+    Effects are drawn from a mixture distribution:
+    \begin{equation}
+ \beta_{j}\sim\begin{cases}
+    N(0, \frac{h^2}{Mp}), & \text{with probability $p$}.\\
+    0, & \text{otherwise}.
+  \end{cases}
+  \end{equation}
+\newline
+
+  -LDpred1: $h^2$ estimated with constrained LD score regression (fixed intercpept=1)
+  \newline
+  -Gibbs sampler algorithm:
+  \end{frame}
+    
+       \begin{frame}{Gibbs sampler algorithm: main steps}
+  \begin{enumerate}
+    \item residualized effect sizes for each variant $j$ : $\tilde{\beta_{j}}$
+      \item probability that variant $j$ is causal: $\bar{p_{j}}$
+      \item $\beta_{j}$ is sampled according to:
+         \begin{equation}
+ \beta_{j}|\tilde{\beta_{j}}\sim\begin{cases}
+    N(\frac{1}{1+\frac{Mp}{nh^2}}\tilde{\beta_{j}},\frac{1}{1+\frac{Mp}{nh^2}}\frac{1}{n}), & \text{with probability $p$}.\\
+    0, & \text{otherwise}.
+  \end{cases}
+  \end{equation}
+      \item posterior mean of $\beta_{j}|\tilde{\beta_{j}}$: $\omega_{j}$
+  
+  \end{enumerate}
+  
+       \end{frame}
+       
+            \begin{frame}{Gibbs sampler algorithm: main steps}
+            \includegraphics[width=130mm,scale=1.3]{gibbs.png}
+            %ldpred2-auto updates h2 and p in the inner loop and are used in the next iteration, whereas in ldpred 1 they are fixed
+            %When the sparse solution is sought and when ¯pj < p, we set βj and ωj to 0 (lines 6-8 of algorithm 1).
+            %run 30 chains of ldpred auto  to check for convergence
+            \end{frame}
+   
+
 %next
    \begin{frame}{LDpred: pros and cons overview}
    \begin{columns}[t, onlytextwidth]
@@ -92,12 +135,12 @@ But \emph{actually} also requires:
   \section{New method: LDpred2}   
   \begin{frame}{LDpred2: what's new?}
     \begin{itemize}
-        \item Runs in bigsnpr package in \alert{R}. \alert{Better?}
-        \item \alert{Faster}
+        \item Runs in bigsnpr package in \alert{R}. 
         \item LDpred-auto: learns parameters from the data. \alert{Stronger}
         \item \alert{More accurate} PRS: simulation and real data benchmarking
-        \item Compares favorably to other methods [sort of] 
-        \item \alert{has tutorial}!! \alert{Better!} \url{https://privefl.github.io/bigsnpr/articles/LDpred2.html}
+        \item Compares favorably to LDpred 1 and other methods [sort of] 
+        \item parallelization in C++ - \alert{FASTER}
+        \item \alert{has tutorial}!! - \alert{Better} \url{https://privefl.github.io/bigsnpr/articles/LDpred2.html}
     \end{itemize}
 
   \end{frame}
@@ -188,24 +231,6 @@ But \emph{actually} also requires:
         \end{itemize}
        \end{frame}
     
-    
-    
-    
-  
-    
-%    \begin{frame}{Typesetting and Math}
-%        The packages \texttt{inputenc} and \texttt{FiraSans}\footnote{\url{https://fonts.google.com/specimen/Fira+Sans}}\textsuperscript{,}\footnote{\url{http://mozilla.github.io/Fira/}} are used to properly set the main fonts.
-%        \vfill
-%        This theme provides styling commands to typeset \emph{emphasized}, \alert{alerted}, \textbf{bold}, \textcolor{example}{example text}, \dots
-%       \vfill
-%        \texttt{FiraSans} also provides support for mathematical symbols:
-%        \begin{equation*}
-%            e^{i\pi} + 1 = 0.
-%        \end{equation*}
-%    \end{frame}
-
-
-
 %BLOCKS%%%%%
 %    \section{Section 2}
 %    \begin{frame}{Blocks}
@@ -289,33 +314,16 @@ But \emph{actually} also requires:
 %    \end{frame}
     
     \appendix
+    \begin{frame}{QC for LDpred2-auto}
+    \includegraphics[width=100mm,scale=1]{S1.png}
+        
+    \end{frame}
 %    \begin{frame}{References}
 %        \nocite{*}
 %        \bibliography{demo_bibliography}
 %        \bibliographystyle{plain}
 %    \end{frame}
     
-    \begin{frame}[t]{LDpred model}
-    Unlinked markers and non-infinitesimal architecture\\
-    \newline
-    
-    Effects are drawn from a mixture distribution:
-    \begin{equation}
- \beta_{i}\sim\begin{cases}
-    N(0, \frac{h^2}{Mp}), & \text{with probability $p$}.\\
-    0, & \text{with probability $1-p$}.
-  \end{cases}
-\end{equation}
-        
-        
-    
-    \end{frame}
-    
-       \begin{frame}{LDpred model}
-       \end{frame}
-       
-       
-       \begin{frame}{MCMC, Gibbs Sampler etc}
-       \end{frame}
+
        
 \end{document}
